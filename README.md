@@ -8,10 +8,8 @@ REST API URI endpoint
 I have added support for Swagger API docs
 Swagger UI -> http://localhost:8080/swagger-ui.html#!/shop-mgmt/ 
 
-I have used gradle
+I have used gradle.
 I have also used in memory database.
-I have used testng and mockito frameworks for tests
-I have added custom exceptions
-I have also added controller advice to handle exceptions from controller at global level
-
-Please let me know if you have any queries.
+I have used testng and mockito frameworks for tests.
+I have added custom exceptions.
+I have also added controller advice to handle exceptions from controller at global level.
