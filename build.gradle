@@ -1,0 +1,64 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+jar {
+    baseName = 'shop-service'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+test {
+  useTestNG()
+  
+  testLogging.showStandardStreams = true
+  testLogging.exceptionFormat = 'full'
+  
+  include 'src/test/java/**'
+  exclude 'src/test/java/controller'
+  
+    // set heap size for the test JVM(s)
+  minHeapSize = "128m"
+  maxHeapSize = "512m"
+
+  // set JVM arguments for the test JVM(s)
+  jvmArgs '-XX:MaxPermSize=256m'
+
+  // listen to events in the test execution lifecycle
+  beforeTest { descriptor ->
+     logger.lifecycle("Running test: " + descriptor)
+  }
+
+  // listen to standard out and standard error of the test JVM(s)
+  onOutput { descriptor, event ->
+     logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message )
+  }
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("com.h2database:h2")
+    compile("com.google.maps:google-maps-services:0.1.20")
+    compile("io.springfox:springfox-swagger-ui:2.2.2")
+    compile("io.springfox:springfox-swagger2:2.2.2")
+    testCompile("org.testng:testng:6.8")
+    testCompile("org.powermock:powermock-api-mockito:1.7.0")
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
