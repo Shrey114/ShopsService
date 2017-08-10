@@ -9,42 +9,67 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class ShopAddress {
-	
+
 	/**
-	 * Shop number or exact address details
+	 * Shop number
 	 */
 	@Column(nullable = false)
 	private String shopNumber;
-	
+
+	/**
+	 * Shop exact address details
+	 */
+	@Column(nullable = false)
+	private String completeAddress;
+
 	/**
 	 * Shop post code
 	 */
 	@Column(nullable = false)
 	private String postCode;
-	
-	protected ShopAddress() {}
 
-    public ShopAddress(String shopNumber, String postCode) {
-        this.shopNumber = shopNumber;
-        this.postCode = postCode;
-    }
-	
+	protected ShopAddress() {
+	}
+
+	public ShopAddress(String shopNumber, String postCode, String completeAddress) {
+		this.shopNumber = shopNumber;
+		this.postCode = postCode;
+		this.completeAddress = completeAddress;
+	}
+
+	public ShopAddress(ShopAddress shopAddress) {
+		this.shopNumber = shopAddress.shopNumber;
+		this.postCode = shopAddress.postCode;
+		this.completeAddress = shopAddress.completeAddress;
+	}
+
 	public String getShopNumber() {
 		return shopNumber;
 	}
+
 	public void setShopNumber(String shopNumber) {
 		this.shopNumber = shopNumber;
 	}
+
 	public String getPostCode() {
 		return postCode;
 	}
+
 	public void setPostCode(String postCode) {
 		this.postCode = postCode;
 	}
 
+	public String getCompleteAddress() {
+		return completeAddress;
+	}
+
+	public void setCompleteAddress(String completeAddress) {
+		this.completeAddress = completeAddress;
+	}
+
 	@Override
 	public String toString() {
-		return "ShopAddress [shopNumber=" + shopNumber + ", postCode=" + postCode + "]";
+		return "ShopAddress [shopNumber=" + shopNumber + ", postCode=" + postCode + ", completeAddress=]" + completeAddress;
 	}
 
 	@Override
@@ -78,10 +103,12 @@ public class ShopAddress {
 		return true;
 	}
 
-	public String getCompleteAddress() {
+	public String getConcatenatedAddress() {
 		StringBuilder builder = new StringBuilder();
 		builder.append(getShopNumber());
-		builder.append(" ");
+		builder.append(", ");
+		builder.append(getCompleteAddress());
+		builder.append(", ");
 		builder.append(getPostCode());
 		return builder.toString();
 	}

@@ -32,6 +32,12 @@ public class Shop {
 
 	protected Shop() {
 	}
+	
+	public Shop(Shop shop) {
+		this.shopName = shop.shopName;
+		this.shopAddress = new ShopAddress(shop.getShopAddress());
+		this.latLng = new LatitudeLongitude(shop.getLatLng());
+	}
 
 	public Shop(String shopName, ShopAddress shopAddress) {
 		this.shopName = shopName;

@@ -33,24 +33,24 @@ import com.hcl.respository.ShopRepository;
 @WebMvcTest
 @RunWith(SpringRunner.class)
 public class ShopServiceImplTest {
-	
+
 	private static final String SHOP_NAME = "My Fashion Apparel";
-	
+
 	private static final String API_KEY = "AIzaSyA9FjdLyNRnmHleG0J76KOlyP5cmqWcAcE";
 
 	private Shop shop;
-	
+
 	private LatitudeLongitude latLng;
-	
+
 	@InjectMocks
 	private ShopServiceImpl shopServiceImpl;
-	
+
 	@Mock
 	private GeoService geoServiceMock;
-	
+
 	@Mock
 	private ShopRepository shopRepositoryMock;
-	
+
 	@BeforeMethod
 	public void setUP() throws Exception {
 		MockitoAnnotations.initMocks(this);
@@ -62,16 +62,16 @@ public class ShopServiceImplTest {
 	public void tearDown() throws Exception {
 		this.shop = null;
 	}
-	
+
 	private void mockShop() {
-		ShopAddress shopAddress = new ShopAddress("LA-1111, Crowley, LA", "70526");
+		ShopAddress shopAddress = new ShopAddress("LA-1111", "70526", "Crowley, LA");
 		this.shop = new Shop(SHOP_NAME, shopAddress);
 	}
-	
+
 	private void mockLatitudeLongitude() {
-		this.latLng = new LatitudeLongitude(30.00000000,-92.00000000);
+		this.latLng = new LatitudeLongitude(30.00000000, -92.00000000);
 	}
-	
+
 	@Test
 	public void testSave() throws Exception {
 		when(geoServiceMock.getLatitudeLongitudeFromAddress(API_KEY, shop)).thenReturn(latLng);
@@ -85,17 +85,17 @@ public class ShopServiceImplTest {
 	public void testFindAll() throws Exception {
 		List<Shop> shops = new ArrayList<Shop>();
 		shops.add(shop);
-		
+
 		Page<Shop> pageShops = new PageImpl<Shop>(shops);
-		
+
 		when(shopRepositoryMock.findAll(new PageRequest(0, 10))).thenReturn(pageShops);
 		shopServiceImpl.listShops(0, 10);
-		
+
 		assertNotNull(shops.get(0).getShopName());
 		assertEquals(SHOP_NAME, shops.get(0).getShopName());
 		assertNotNull(shops.get(0).getShopAddress());
-		
+
 		verify(shopRepositoryMock).findAll(new PageRequest(0, 10));
 	}
-	
+
 }

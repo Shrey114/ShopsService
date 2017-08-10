@@ -44,7 +44,13 @@ public class ShopController {
 			@ApiResponse(code = 500, message = "Internal Failure") })
 	@RequestMapping(value = "/shops", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<?> createShop(@RequestBody Shop shop) {
-		Shop previousShop = shopService.findShopByName(shop.getShopName());
+		Shop previousShop = null;
+
+		Shop existingShop = shopService.findShopByName(shop.getShopName());
+		if (existingShop != null) {
+			previousShop = new Shop(existingShop);
+		}
+
 		Shop savedShop = shopService.addShop(shop);
 
 		if (previousShop != null) {

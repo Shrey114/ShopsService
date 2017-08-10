@@ -27,6 +27,11 @@ public class LatitudeLongitude {
 		this.longitude = longitude;
 	}
 
+	public LatitudeLongitude(LatitudeLongitude latLng) {
+		this.latitude = latLng.latitude;
+		this.longitude = latLng.longitude;
+	}
+
 	public double getLatitude() {
 		return latitude;
 	}

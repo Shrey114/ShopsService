@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <include resource="org/springframework/boot/logging/logback/defaults.xml" />
-    <property name="LOG_FILE" value="C:/log/shops_management.log"/>
+    <property name="LOG_FILE" value="logs/shops_management.log"/>
     <include resource="org/springframework/boot/logging/logback/file-appender.xml" />
     <root level="INFO">
         <appender-ref ref="FILE" />

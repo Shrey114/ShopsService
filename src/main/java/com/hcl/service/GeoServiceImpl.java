@@ -38,7 +38,7 @@ public class GeoServiceImpl implements GeoService {
 		GeoApiContext context = getGeoApiContext(apiKey);
 		try {
 			GeocodingApiRequest geocodingApiRequest = GeocodingApi.geocode(context,
-					shop.getShopAddress().getCompleteAddress());
+					shop.getShopAddress().getConcatenatedAddress());
 			GeocodingResult[] results = geocodingApiRequest.await();
 			for (GeocodingResult result : results) {
 				LatLng latLng = result.geometry.location;
